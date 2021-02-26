@@ -4,6 +4,7 @@ import com.tungntdo.demo.config.GlobalConfigs;
 import com.tungntdo.demo.config.GlobalConstants;
 import com.tungntdo.demo.model.dto.UserDto;
 import com.tungntdo.demo.model.request.UserDetailRequestModel;
+import com.tungntdo.demo.model.response.UserLoginResponse;
 import com.tungntdo.demo.model.response.UserResponse;
 import com.tungntdo.demo.service.UserService;
 import org.springframework.beans.BeanUtils;
@@ -37,5 +38,12 @@ public class UserController {
 
         return returnValue;
     }
+
+//    @PostMapping(path = GlobalConfigs.URL.USER.LOGIN)
+//    public UserLoginResponse loginUser(@Valid @RequestBody UserDetailRequestModel userDetailRequest) {
+//        UserLoginResponse returnValue = new UserLoginResponse();
+//
+//        return returnValue;
+//    }
 
 }

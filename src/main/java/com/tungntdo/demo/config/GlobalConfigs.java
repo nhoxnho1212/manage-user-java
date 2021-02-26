@@ -3,7 +3,7 @@ package com.tungntdo.demo.config;
 public class GlobalConfigs {
     public interface URL {
         interface USER {
-            String MAIN = "/users";
+            String MAIN = "/user";
             String LOGIN = MAIN + "/login";
         }
     }
@@ -27,5 +27,14 @@ public class GlobalConfigs {
         String LAST_NAME_AT_LEAST_1_CHARACTERS = "Last name at least 1 characters";
         String EMAIL_NOT_VALID = "Email not valid";
         String PASSWORD_AT_LEAST_6_CHARACTERS = "Password at least 6 characters";
+    }
+
+    public interface JWT_SECURITY {
+        interface ACCESS_TOKEN {
+            long EXPIRATION_TIME = GlobalConstants.TIME.TEN_SECONDS;
+            String TOKEN_PREFIX = "Bearer ";
+            String HEADER_STRING = "Authorization";
+            String TOKEN_SECRET = "2wqs12wsad43re";
+        }
     }
 }
