@@ -1,10 +1,4 @@
-package com.tungntdo.demo.model.request;
-
-import com.tungntdo.demo.config.GlobalConfigs;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+package com.tungntdo.demo.payload.request;
 
 public class UserLoginRequestModel {
 //    @Email(message = GlobalConfigs.MESSAGES_VALIDATION.EMAIL_NOT_VALID)

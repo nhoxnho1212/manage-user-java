@@ -2,7 +2,7 @@ package com.tungntdo.demo.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tungntdo.demo.config.GlobalConfigs;
-import com.tungntdo.demo.model.request.UserLoginRequestModel;
+import com.tungntdo.demo.payload.request.UserLoginRequestModel;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
