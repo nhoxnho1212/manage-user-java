@@ -11,6 +11,11 @@ public class GlobalConfigs {
     public interface TABLE {
         // Cannot use "user" as the name of table in PostgresSQL because it is a reserved name.
         String USER = "users";
+        String ADDRESS = "address";
+        String GEOGRAPHY = "geography";
+        String TOKEN = "token";
+        String TOKEN_TYPE = "token_type";
+
     }
 
     public interface USER_REQUEST_VALIDATION {

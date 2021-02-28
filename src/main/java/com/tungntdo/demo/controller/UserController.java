@@ -1,11 +1,9 @@
 package com.tungntdo.demo.controller;
 
 import com.tungntdo.demo.config.GlobalConfigs;
-import com.tungntdo.demo.config.GlobalConstants;
-import com.tungntdo.demo.model.dto.UserDto;
-import com.tungntdo.demo.model.request.UserDetailRequestModel;
-import com.tungntdo.demo.model.response.UserLoginResponse;
-import com.tungntdo.demo.model.response.UserResponse;
+import com.tungntdo.demo.model.entity.UserEntity;
+import com.tungntdo.demo.payload.request.UserDetailRequestModel;
+import com.tungntdo.demo.payload.response.UserResponse;
 import com.tungntdo.demo.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +27,11 @@ public class UserController {
 
         UserResponse returnValue = new UserResponse();
 
-        UserDto userDtoRequest = new UserDto();
-        BeanUtils.copyProperties(userDetailRequest, userDtoRequest);
+        UserEntity userRequest = new UserEntity();
+        BeanUtils.copyProperties(userDetailRequest, userRequest);
 
         // Create User
-        UserDto createdUser =  userService.createUser(userDtoRequest);
+        UserEntity createdUser =  userService.createUser(userRequest);
         BeanUtils.copyProperties(createdUser, returnValue);
 
         return returnValue;
