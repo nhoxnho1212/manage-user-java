@@ -1,0 +1,5 @@
+INSERT INTO public.token_type (id,create_at,type_name,update_at) VALUES
+	 (1,'2021-02-28 15:19:40.418','ACCESS_TOKEN','2021-02-28 15:19:40.418'),
+	 (2,'2021-02-28 15:19:40.418','REFRESH_TOKEN
+','2021-02-28 15:19:40.418'),
+	 (3,'2021-02-28 15:19:40.418','EMAIL_TOKEN','2021-02-28 15:19:40.418');

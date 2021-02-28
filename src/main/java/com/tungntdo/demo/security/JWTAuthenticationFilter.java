@@ -2,11 +2,15 @@ package com.tungntdo.demo.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tungntdo.demo.config.GlobalConfigs;
+import com.tungntdo.demo.config.GlobalConstants;
+import com.tungntdo.demo.model.entity.TokenEntity;
 import com.tungntdo.demo.payload.request.UserLoginRequestModel;
+import com.tungntdo.demo.service.TokenService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,10 +30,14 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     Logger logger = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
 
+    private TokenService tokenService;
+
     private AuthenticationManager authenticationManager;
 
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
+
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, ApplicationContext applicationContext) {
         this.authenticationManager = authenticationManager;
+        this.tokenService = applicationContext.getBean(TokenService.class);
         setFilterProcessesUrl(GlobalConfigs.URL.USER.LOGIN);
     }
 
@@ -59,11 +67,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
 
-        String userName = ((User) authResult.getPrincipal()).getUsername();
+        String userEmail = ((User) authResult.getPrincipal()).getUsername();
+
+        TokenEntity tokenEntity = tokenService.createTokenByUser(userEmail, GlobalConstants.TOKEN_TYPE.ACCESS_TOKEN);
 
         String token = Jwts.builder()
-                .setSubject(userName)
-                .setExpiration(new Date(System.currentTimeMillis() + GlobalConfigs.JWT_SECURITY.ACCESS_TOKEN.EXPIRATION_TIME))
+                .setSubject(tokenEntity.getTokenId())
+                .setExpiration(tokenEntity.getExpiresAt())
                 .signWith(SignatureAlgorithm.HS256, GlobalConfigs.JWT_SECURITY.ACCESS_TOKEN.TOKEN_SECRET)
                 .compact();
 

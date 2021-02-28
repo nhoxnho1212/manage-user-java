@@ -13,4 +13,8 @@ public class GlobalConstants {
         long ONE_DAY = 24 * 60 * 1000;
     }
 
+    public enum TOKEN_TYPE {
+        ACCESS_TOKEN, REFRESH_TOKEN, EMAIL_TOKEN
+    }
+
 }
