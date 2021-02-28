@@ -28,7 +28,7 @@ public class TokenEntity implements Serializable {
     private UserEntity user;
 
     @Column(nullable = false)
-    private Boolean revoked;
+    private Boolean revoked = false;
 
     @Column
     private String scopes;
