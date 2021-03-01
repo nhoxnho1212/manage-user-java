@@ -1,5 +1,7 @@
 package com.tungntdo.demo.config;
 
+import com.tungntdo.demo.SpringApplicationContext;
+
 public class GlobalConfigs {
     public interface URL {
         interface USER {
@@ -34,12 +36,17 @@ public class GlobalConfigs {
         String PASSWORD_AT_LEAST_6_CHARACTERS = "Password at least 6 characters";
     }
 
-    public interface JWT_SECURITY {
-        interface ACCESS_TOKEN {
-            long EXPIRATION_TIME = GlobalConstants.TIME.TEN_SECONDS;
+    public static class JWT_SECURITY {
+
+        public interface ACCESS_TOKEN {
+            long EXPIRATION_TIME = GlobalConstants.TIME.ONE_MINUS;
             String TOKEN_PREFIX = "Bearer ";
             String HEADER_STRING = "Authorization";
-            String TOKEN_SECRET = "2wqs12wsad43re";
+        }
+
+        public static String getTokenSecret() {
+             AppProperties appProperties = (AppProperties) SpringApplicationContext.getBean("AppProperties");
+             return appProperties.getTokenSecret();
         }
     }
 }
