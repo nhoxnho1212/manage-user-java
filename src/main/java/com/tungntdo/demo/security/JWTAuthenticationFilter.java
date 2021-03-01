@@ -82,6 +82,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         UserLoginResponse returnValue = new UserLoginResponse();
         returnValue.setAccessToken(accessToken);
+        returnValue.setUserId(tokenEntity.getUser().getUserId());
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
