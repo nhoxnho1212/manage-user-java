@@ -37,11 +37,19 @@ public class UserController {
         return returnValue;
     }
 
-//    @PostMapping(path = GlobalConfigs.URL.USER.LOGIN)
-//    public UserLoginResponse loginUser(@Valid @RequestBody UserDetailRequestModel userDetailRequest) {
-//        UserLoginResponse returnValue = new UserLoginResponse();
-//
-//        return returnValue;
-//    }
+    @GetMapping(
+        path = "/{userId}"
+    )
+    public UserResponse getUser(@PathVariable String userId) {
+
+        UserResponse returnValue = new UserResponse();
+
+        UserEntity userEntity = userService.getUserByUserId(userId);
+
+        BeanUtils.copyProperties(userEntity, returnValue);
+
+        return returnValue;
+    }
+
 
 }

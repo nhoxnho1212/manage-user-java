@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -75,7 +74,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String accessToken = Jwts.builder()
                 .setSubject(tokenEntity.getTokenId())
                 .setExpiration(tokenEntity.getExpiresAt())
-                .signWith(SignatureAlgorithm.HS256, GlobalConfigs.JWT_SECURITY.ACCESS_TOKEN.TOKEN_SECRET)
+                .signWith(SignatureAlgorithm.HS256, GlobalConfigs.JWT_SECURITY.getTokenSecret())
                 .compact();
 
 //        response.addHeader(GlobalConfigs.JWT_SECURITY.ACCESS_TOKEN.HEADER_STRING,
