@@ -1,9 +1,11 @@
 package com.tungntdo.demo.service.impl;
 
 import com.tungntdo.demo.config.constant.ErrorMessages;
+import com.tungntdo.demo.config.constant.ResponseMessages;
 import com.tungntdo.demo.exception.UserServiceException;
 import com.tungntdo.demo.model.entity.UserEntity;
 import com.tungntdo.demo.model.repository.UserRepository;
+import com.tungntdo.demo.payload.response.ApiResponse;
 import com.tungntdo.demo.service.UserService;
 import com.tungntdo.demo.shared.Util;
 import org.slf4j.Logger;
@@ -86,6 +88,16 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
         return user;
+    }
+
+    @Override
+    public ApiResponse deleteUser(String userId) {
+
+        UserEntity user = getUserByUserId(userId);
+
+        userRepository.delete(user);
+
+        return new ApiResponse(Boolean.TRUE, ResponseMessages.USER.DELETE_SUCCESS.name());
     }
 
     @Override

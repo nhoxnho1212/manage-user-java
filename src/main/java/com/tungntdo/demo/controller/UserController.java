@@ -4,10 +4,13 @@ import com.tungntdo.demo.config.GlobalConfigs;
 import com.tungntdo.demo.model.entity.UserEntity;
 import com.tungntdo.demo.payload.request.UserDetailRequestModel;
 import com.tungntdo.demo.payload.request.UserUpdateRequestModel;
+import com.tungntdo.demo.payload.response.ApiResponse;
 import com.tungntdo.demo.payload.response.UserResponse;
 import com.tungntdo.demo.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -67,4 +70,14 @@ public class UserController {
 
     }
 
+    @DeleteMapping(
+            path = "/{userId}"
+    )
+    public ResponseEntity<ApiResponse> deleteUser(@PathVariable String userId) {
+        ApiResponse returnValue = userService.deleteUser(userId);
+
+        return new ResponseEntity<>(returnValue, HttpStatus.OK);
+    }
+
 }
+

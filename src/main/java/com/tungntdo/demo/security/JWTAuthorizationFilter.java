@@ -1,11 +1,16 @@
 package com.tungntdo.demo.security;
 
+import com.tungntdo.demo.SpringApplicationContext;
 import com.tungntdo.demo.config.GlobalConfigs;
+import com.tungntdo.demo.model.entity.TokenEntity;
+import com.tungntdo.demo.service.TokenService;
+import com.tungntdo.demo.service.UserService;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -46,6 +51,15 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                     .getSubject();
 
             if (null != tokenId) {
+
+                TokenService tokenService = (TokenService) SpringApplicationContext.getBean(TokenService.class);
+
+                TokenEntity tokenEntity = tokenService.getTokenByTokenId(tokenId);
+
+                if (null == tokenEntity) {
+                    return null;
+                }
+
                 return new UsernamePasswordAuthenticationToken(tokenId, null, new ArrayList<>());
             }
 

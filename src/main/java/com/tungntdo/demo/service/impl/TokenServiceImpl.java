@@ -62,4 +62,11 @@ public class TokenServiceImpl implements TokenService {
 
         return storedToken;
     }
+
+    @Override
+    public TokenEntity getTokenByTokenId(String tokenId) {
+        TokenEntity tokenEntity = tokenRepository.findTokenEntityByTokenId(tokenId);
+
+        return tokenEntity;
+    }
 }
