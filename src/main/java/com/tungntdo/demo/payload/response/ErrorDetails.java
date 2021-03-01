@@ -1,4 +1,4 @@
-package com.tungntdo.demo.model.response;
+package com.tungntdo.demo.payload.response;
 
 import java.util.Date;
 

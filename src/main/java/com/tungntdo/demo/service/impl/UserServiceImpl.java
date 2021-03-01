@@ -1,9 +1,13 @@
 package com.tungntdo.demo.service.impl;
 
+import com.tungntdo.demo.config.constant.ErrorMessages;
+import com.tungntdo.demo.exception.UserServiceException;
 import com.tungntdo.demo.model.entity.UserEntity;
 import com.tungntdo.demo.model.repository.UserRepository;
 import com.tungntdo.demo.service.UserService;
 import com.tungntdo.demo.shared.Util;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -18,6 +22,8 @@ import java.util.ArrayList;
 @Service
 public class UserServiceImpl implements UserService {
 
+    Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     UserRepository userRepository;
 
@@ -30,7 +36,7 @@ public class UserServiceImpl implements UserService {
         // Check email is existed or is not
         UserEntity storedUserDetails = userRepository.findByEmail(user.getEmail());
         if (null != storedUserDetails) {
-            throw new RuntimeException("Record already exists");
+            throw new UserServiceException(ErrorMessages.RECORD_ALREADY_ERROR.getErrorMessage());
         }
 
         UserEntity userEntity = new UserEntity();
@@ -45,7 +51,8 @@ public class UserServiceImpl implements UserService {
         try {
             uuid = Util.generateUniqueKeyWithUUIDv4();
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("No Such Algorithm for hash id");
+            logger.error(ErrorMessages.NO_SUCH_ALGORITHM_FOR_HASH_ID.getErrorMessage());
+            throw new RuntimeException(ErrorMessages.INTERNAL_SERVER_ERROR.getErrorMessage());
         }
         userEntity.setUserId(uuid);
 
@@ -59,7 +66,7 @@ public class UserServiceImpl implements UserService {
         UserEntity returnValue = userRepository.findByUserId(userId);
 
         if (null == returnValue) {
-            throw new UsernameNotFoundException(userId);
+            throw new UserServiceException(ErrorMessages.USER_NOT_FOUND.getErrorMessage());
         }
 
         return returnValue;
@@ -69,7 +76,7 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserEntity userEntity = userRepository.findByEmail(email);
         if (null == userEntity) {
-            throw new UsernameNotFoundException(email);
+            throw new UserServiceException(ErrorMessages.USER_NOT_FOUND.getErrorMessage());
         }
         return new User(userEntity.getEmail(), userEntity.getPassword(), new ArrayList<>());
     }
