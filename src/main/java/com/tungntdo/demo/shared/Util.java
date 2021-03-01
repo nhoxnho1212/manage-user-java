@@ -1,6 +1,6 @@
 package com.tungntdo.demo.shared;
 
-import com.tungntdo.demo.config.GlobalConstants;
+import com.tungntdo.demo.config.constant.GlobalConstants;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

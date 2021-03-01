@@ -1,7 +1,7 @@
 package com.tungntdo.demo.service.impl;
 
 import com.tungntdo.demo.config.GlobalConfigs;
-import com.tungntdo.demo.config.GlobalConstants;
+import com.tungntdo.demo.config.constant.GlobalConstants;
 import com.tungntdo.demo.model.entity.TokenEntity;
 import com.tungntdo.demo.model.entity.TokenTypeEntity;
 import com.tungntdo.demo.model.entity.UserEntity;
@@ -10,15 +10,11 @@ import com.tungntdo.demo.model.repository.TokenTypeRepository;
 import com.tungntdo.demo.model.repository.UserRepository;
 import com.tungntdo.demo.service.TokenService;
 import com.tungntdo.demo.shared.Util;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import org.apache.commons.lang3.EnumUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Service
 public class TokenServiceImpl implements TokenService {

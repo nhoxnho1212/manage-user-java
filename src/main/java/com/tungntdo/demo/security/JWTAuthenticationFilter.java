@@ -2,7 +2,7 @@ package com.tungntdo.demo.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tungntdo.demo.config.GlobalConfigs;
-import com.tungntdo.demo.config.GlobalConstants;
+import com.tungntdo.demo.config.constant.GlobalConstants;
 import com.tungntdo.demo.model.entity.TokenEntity;
 import com.tungntdo.demo.payload.request.UserLoginRequestModel;
 import com.tungntdo.demo.payload.response.UserLoginResponse;

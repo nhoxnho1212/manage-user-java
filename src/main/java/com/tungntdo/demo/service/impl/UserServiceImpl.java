@@ -58,6 +58,10 @@ public class UserServiceImpl implements UserService {
     public UserEntity getUserByUserId(String userId) {
         UserEntity returnValue = userRepository.findByUserId(userId);
 
+        if (null == returnValue) {
+            throw new UsernameNotFoundException(userId);
+        }
+
         return returnValue;
     }
 

@@ -1,6 +1,7 @@
 package com.tungntdo.demo.config;
 
 import com.tungntdo.demo.SpringApplicationContext;
+import com.tungntdo.demo.config.constant.GlobalConstants;
 
 public class GlobalConfigs {
     public interface URL {
