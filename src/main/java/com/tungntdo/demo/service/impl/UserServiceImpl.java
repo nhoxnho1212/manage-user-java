@@ -73,6 +73,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserEntity updateUser(String userId, UserEntity userDetailsRequest) {
+
+        UserEntity user = getUserByUserId(userId);
+        if (null != userDetailsRequest.getFirstName()) {
+            user.setFirstName(userDetailsRequest.getFirstName());
+        }
+        if (null != userDetailsRequest.getLastName()) {
+            user.setLastName(userDetailsRequest.getLastName());
+        }
+
+        userRepository.save(user);
+
+        return user;
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserEntity userEntity = userRepository.findByEmail(email);
         if (null == userEntity) {

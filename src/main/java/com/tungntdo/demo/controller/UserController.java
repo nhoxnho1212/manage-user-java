@@ -3,6 +3,7 @@ package com.tungntdo.demo.controller;
 import com.tungntdo.demo.config.GlobalConfigs;
 import com.tungntdo.demo.model.entity.UserEntity;
 import com.tungntdo.demo.payload.request.UserDetailRequestModel;
+import com.tungntdo.demo.payload.request.UserUpdateRequestModel;
 import com.tungntdo.demo.payload.response.UserResponse;
 import com.tungntdo.demo.service.UserService;
 import org.springframework.beans.BeanUtils;
@@ -13,8 +14,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(
-        value = GlobalConfigs.URL.USER.MAIN,
-        method = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE }
+        value = GlobalConfigs.URL.USER.MAIN
 )
 public class UserController {
 
@@ -51,5 +51,20 @@ public class UserController {
         return returnValue;
     }
 
+    @PutMapping(
+            path = "/{userId}"
+    )
+    public UserResponse udpateUser(@PathVariable String userId, @Valid @RequestBody UserUpdateRequestModel userDetails) {
+        UserEntity userRequest = new UserEntity();
+        BeanUtils.copyProperties(userDetails, userRequest);
+
+        UserEntity updatedValue = userService.updateUser(userId, userRequest);
+
+        UserResponse returnValue = new UserResponse();
+        BeanUtils.copyProperties(updatedValue, returnValue);
+
+        return returnValue;
+
+    }
 
 }
