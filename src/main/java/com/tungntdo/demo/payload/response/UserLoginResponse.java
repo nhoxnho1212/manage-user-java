@@ -5,6 +5,8 @@ public class UserLoginResponse {
 
     private String refreshToken;
 
+    private String userId;
+
     public String getAccessToken() {
         return accessToken;
     }
@@ -21,11 +23,20 @@ public class UserLoginResponse {
         this.refreshToken = refreshToken;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "{" +
                 "\"accessToken\": \"" + accessToken + '\"' +
                 ", \"refreshToken\": \"" + refreshToken + '\"' +
+                ", \"userId\": \"" + userId + '\"' +
                 '}';
     }
 }
