@@ -10,20 +10,21 @@ import javax.validation.constraints.Size;
 
 public class UserDetailRequestModel {
 
-    @NotBlank
+    @NotBlank(message = GlobalConfigs.MESSAGES_VALIDATION.FIRST_NAME_AT_LEAST_1_CHARACTERS)
     @Size(
             min = GlobalConfigs.USER_REQUEST_VALIDATION.USER.MIN_NAME_LENGTH,
             message = GlobalConfigs.MESSAGES_VALIDATION.FIRST_NAME_AT_LEAST_1_CHARACTERS
     )
     private String firstName;
 
-    @NotBlank
+    @NotBlank(message = GlobalConfigs.MESSAGES_VALIDATION.LAST_NAME_AT_LEAST_1_CHARACTERS)
     @Size(
             min = GlobalConfigs.USER_REQUEST_VALIDATION.USER.MIN_NAME_LENGTH,
             message = GlobalConfigs.MESSAGES_VALIDATION.LAST_NAME_AT_LEAST_1_CHARACTERS
     )
     private String lastName;
 
+    @NotNull(message = GlobalConfigs.MESSAGES_VALIDATION.EMAIL_NOT_VALID)
     @Email(message = GlobalConfigs.MESSAGES_VALIDATION.EMAIL_NOT_VALID)
     private String email;
 

@@ -6,9 +6,9 @@ public class ErrorDetails {
     private Date timestamp;
     private Boolean success;
     private String message;
-    private String details;
+    private Object details;
 
-    public ErrorDetails(Date timestamp, Boolean success, String message, String details) {
+    public ErrorDetails(Date timestamp, Boolean success, String message, Object details) {
         this.timestamp = timestamp;
         this.success = success;
         this.message = message;
@@ -39,11 +39,11 @@ public class ErrorDetails {
         this.message = message;
     }
 
-    public String getDetails() {
+    public Object getDetails() {
         return details;
     }
 
-    public void setDetails(String details) {
+    public void setDetails(Object details) {
         this.details = details;
     }
 }
