@@ -5,9 +5,12 @@ import com.tungntdo.demo.model.entity.UserEntity;
 import com.tungntdo.demo.payload.response.ApiResponse;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.util.List;
+
 public interface UserService extends UserDetailsService {
     UserEntity createUser(UserEntity user);
     UserEntity getUserByUserId(String userId);
     UserEntity updateUser(String userId, UserEntity userDetailsRequest);
     ApiResponse deleteUser(String userId);
+    List<UserEntity> getUsers(Integer page, Integer limit);
 }

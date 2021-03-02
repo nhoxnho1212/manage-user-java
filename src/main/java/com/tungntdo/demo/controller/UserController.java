@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping(
@@ -77,6 +79,25 @@ public class UserController {
         ApiResponse returnValue = userService.deleteUser(userId);
 
         return new ResponseEntity<>(returnValue, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public List<UserResponse> getUsers(@RequestParam(value = "page", defaultValue = "1") int page,
+                                       @RequestParam(value = "limit", defaultValue = "25") int limit) {
+        // Page begins at 1
+        page += 1;
+        List<UserResponse> returnValue = new ArrayList<>();
+
+        List<UserEntity> users = userService.getUsers(page, limit);
+
+        for (UserEntity userEntity: users) {
+            UserResponse userResponse = new UserResponse();
+            BeanUtils.copyProperties(userEntity, userResponse);
+            returnValue.add(userResponse);
+        }
+
+        return returnValue;
+
     }
 
 }
