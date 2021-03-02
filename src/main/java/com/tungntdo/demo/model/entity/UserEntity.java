@@ -53,11 +53,11 @@ public class UserEntity implements Serializable {
     @Column(name = "email_verification_status", nullable = false)
     private Boolean emailVerificationStatus = false;
 
-    @Column
+    @Column(name = "create_at")
     @CreationTimestamp
     private Timestamp createAt;
 
-    @Column
+    @Column(name = "update_at")
     @UpdateTimestamp
     private Timestamp updateAt;
 

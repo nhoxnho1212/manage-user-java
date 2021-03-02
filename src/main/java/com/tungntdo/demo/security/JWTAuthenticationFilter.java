@@ -2,9 +2,10 @@ package com.tungntdo.demo.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tungntdo.demo.config.GlobalConfigs;
-import com.tungntdo.demo.config.GlobalConstants;
+import com.tungntdo.demo.config.constant.GlobalConstants;
 import com.tungntdo.demo.model.entity.TokenEntity;
 import com.tungntdo.demo.payload.request.UserLoginRequestModel;
+import com.tungntdo.demo.payload.response.UserLoginResponse;
 import com.tungntdo.demo.service.TokenService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -70,13 +71,21 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         TokenEntity tokenEntity = tokenService.createTokenByUser(userEmail, GlobalConstants.TOKEN_TYPE.ACCESS_TOKEN);
 
-        String token = Jwts.builder()
+        String accessToken = Jwts.builder()
                 .setSubject(tokenEntity.getTokenId())
                 .setExpiration(tokenEntity.getExpiresAt())
                 .signWith(SignatureAlgorithm.HS256, GlobalConfigs.JWT_SECURITY.getTokenSecret())
                 .compact();
 
-        response.addHeader(GlobalConfigs.JWT_SECURITY.ACCESS_TOKEN.HEADER_STRING,
-                GlobalConfigs.JWT_SECURITY.ACCESS_TOKEN.TOKEN_PREFIX + token);
+//        response.addHeader(GlobalConfigs.JWT_SECURITY.ACCESS_TOKEN.HEADER_STRING,
+//                GlobalConfigs.JWT_SECURITY.ACCESS_TOKEN.TOKEN_PREFIX + accessToken);
+
+        UserLoginResponse returnValue = new UserLoginResponse();
+        returnValue.setAccessToken(accessToken);
+        returnValue.setUserId(tokenEntity.getUser().getUserId());
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(returnValue.toString());
     }
 }

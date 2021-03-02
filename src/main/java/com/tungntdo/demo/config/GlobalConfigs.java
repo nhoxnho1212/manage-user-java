@@ -1,6 +1,7 @@
 package com.tungntdo.demo.config;
 
 import com.tungntdo.demo.SpringApplicationContext;
+import com.tungntdo.demo.config.constant.GlobalConstants;
 
 public class GlobalConfigs {
     public interface URL {
@@ -39,7 +40,7 @@ public class GlobalConfigs {
     public static class JWT_SECURITY {
 
         public interface ACCESS_TOKEN {
-            long EXPIRATION_TIME = GlobalConstants.TIME.ONE_MINUS;
+            long EXPIRATION_TIME = GlobalConstants.TIME.ONE_HOUR;
             String TOKEN_PREFIX = "Bearer ";
             String HEADER_STRING = "Authorization";
         }
