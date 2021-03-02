@@ -8,10 +8,14 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private JWTAuthenticationEntryPoint unauthorizedHandler;
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
@@ -23,14 +27,23 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST, GlobalConfigs.URL.USER.MAIN)
+        http
+                // We don't need CSRF because out token is invulnerable
+                .csrf().disable()
+                // All urls must be authenticated (filter for token always fires)
+                .authorizeRequests().antMatchers(GlobalConfigs.URL.USER.MAIN)
                 .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
+                // Call our errorHandler if authentication/authorization fails
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+                .and()
+                // Custom jwt based security filter
                 .addFilter(new JWTAuthenticationFilter(authenticationManager(), getApplicationContext()))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager()));
+                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
+                // Don't create session (REST)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
     }
 

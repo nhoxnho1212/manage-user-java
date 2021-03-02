@@ -14,7 +14,8 @@ public enum ErrorMessages {
     NO_DATABASE_MYSQL("No Database! Please install Mysql"),
     NO_DATABASE_POSTGRESSQL("No Database! Please install PostgresSQL"),
     USER_NOT_FOUND("User not found"),
-    NO_SUCH_ALGORITHM_FOR_HASH_ID("No Such Algorithm for hash id");
+    NO_SUCH_ALGORITHM_FOR_HASH_ID("No Such Algorithm for hash id"),
+    UNAUTHORISED("Unauthorised");
 
 
     private String errorMessage;
